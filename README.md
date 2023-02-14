@@ -13,7 +13,7 @@ If you want to compile the code and run this application on your own, I recommen
 ## Implementation details
 The fundamental aim was to build everything from scratch, so there is no external math library included. Basic vectors, matrices and operations like multiplication are implemented at the beginning of the main file. 
 
-To implement basic MVP (Model, View, Projection) mechanism, functions returning matrices for these operations where also written. It includes:
+In order to implement basic MVP (Model, View, Projection) mechanism, functions returning matrices for these operations where also written. It includes:
 ```cpp
 static mat4 ProjectionMat(float ratio, float fov, float zNear, float zFar);
 static mat4 ScaleMat(vec3 scaleVec);
@@ -23,7 +23,7 @@ static mat4 TranslationMat(vec3 translation)
 ```  
 For rotation I've decided to use simple **euler angles**.
 
-Objective coordinates of every vertex are first translated using MVP translation **normalized homogeneous coordinates** (in the range $[-1.0, 1.0]$) and then rasterized which produces fragments (in our case pixels - pixel is represented by one char in console).The **Draw function** is responsible for both described stages.
+Objective coordinates of every vertex are first translated using MVP translation to **normalized homogeneous coordinates** (in the range $[-1.0, 1.0]$) and then rasterized which produces fragments (in our case pixels - pixel is represented by one char in the console).The **Draw function** is responsible for both described stages.
 
 The moment of MVP translation mentioned above is handled by the function 
 ```cpp
@@ -37,8 +37,9 @@ Function
 ```cpp
 static void LitPixel(Color* frameBuffer, float x, float y, Color color);
 ```
-allows changing a color in the colorbuffer of the pixel closest to given normalized homogeneous coordinates given as an input. This function is used for lines rasterization as well as for lines rasterization. For lines DDA(Digital Differential Analyzer) algorithm has been used. 
+allows changing a color in the colorbuffer of the pixel closest to given normalized homogeneous coordinates given as an input. This function is used for points rasterization as well as for lines rasterization. For lines DDA (Digital Differential Analyzer) algorithm has been used. 
 
 At the end of the main loop of this application new frame buffer replaces console's screen buffer. Described Draw function pipeline can be seen on the image below.
 
-<img src="https://user-images.githubusercontent.com/56317134/218835774-373743dc-3428-4424-9ba8-f17c70373699.png" alt="Bitmap font" width=300/>
+<img src="https://user-images.githubusercontent.com/56317134/218871391-199c3df9-57ec-4d41-babb-87096f978e76.png" alt="Bitmap font" width=300/>
+
